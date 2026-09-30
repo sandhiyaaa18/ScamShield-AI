@@ -1,0 +1,23 @@
+"""
+ScamShield SMS Configuration
+"""
+
+# Dataset
+TEST_SIZE = 0.20
+RANDOM_STATE = 42
+
+# TF-IDF
+WORD_NGRAM = (1, 3)
+CHAR_NGRAM = (3, 5)
+
+WORD_MIN_DF = 2
+WORD_MAX_DF = 0.95
+
+CHAR_MIN_DF = 2
+
+# Models
+USE_LINEAR_SVM = True
+USE_LOGISTIC_REGRESSION = True
+
+# Scaling
+USE_STANDARD_SCALER = True

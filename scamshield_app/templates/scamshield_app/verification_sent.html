@@ -1,0 +1,43 @@
+{% extends 'scamshield_app/base.html' %}
+
+{% block content %}
+
+<div class="email-verification-page">
+
+    <div class="email-verification-card">
+
+        <h2>Verify Your Email</h2>
+
+        <p>
+            Your account has been created successfully.
+        </p>
+
+        <p>
+            We have sent a verification link to:
+        </p>
+
+        <div class="verification-email">
+            {{ email }}
+        </div>
+
+        <p>
+            Please check your inbox and click the
+            <strong>Verify Email Address</strong> button.
+        </p>
+
+        <p>
+            You will be able to log in after verifying your email.
+        </p>
+
+        <p class="verification-login">
+            Already verified?
+            <a href="{% url 'login' %}">
+                Login here
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock content %}

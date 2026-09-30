@@ -1,0 +1,16 @@
+{% extends 'scamshield_app/base.html' %}
+{% block content %}
+<div class="signup-box">
+    <h1>📝 Create Account</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {{ form.as_p }}
+        
+        <button type="submit" class="btn-submit">Sign Up</button>
+    </form>
+    <p class="login-link">
+        Already have an account? <a href="{% url 'login' %}">Login here</a>
+    </p>
+</div>
+{% endblock %}

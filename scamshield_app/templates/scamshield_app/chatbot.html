@@ -1,0 +1,219 @@
+{% extends "scamshield_app/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="chatbot-page">
+
+    <div class="chat-container">
+
+        <!-- Header -->
+        <div class="chat-header">
+            <div class="chatbot-icon">🛡️</div>
+
+            <div>
+                <h2>ScamShield AI Assistant</h2>
+                <p>Your online scam safety assistant</p>
+            </div>
+        </div>
+
+
+        <!-- Chat messages -->
+        <div class="chat-box" id="chatBox">
+
+            <div class="message bot-message">
+                <strong>🤖 ScamShield AI</strong>
+
+                <p>
+                    Hello! I'm ScamShield AI Assistant.
+                    How can I help you stay safe online?
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- Quick Questions -->
+        <div class="quick-questions">
+
+            <button onclick="askQuestion('What is phishing?')">
+                What is phishing?
+            </button>
+
+            <button onclick="askQuestion('Should I share my OTP?')">
+                Should I share my OTP?
+            </button>
+
+            <button onclick="askQuestion('How do I identify a fake website?')">
+                How do I identify a fake website?
+            </button>
+
+            <button onclick="askQuestion('I clicked a suspicious link')">
+                I clicked a suspicious link
+            </button>
+
+        </div>
+
+
+        <!-- Input -->
+        <div class="input-area">
+
+            <input
+                type="text"
+                id="messageInput"
+                placeholder="Ask ScamShield AI..."
+                autocomplete="off"
+            >
+
+            <button id="sendButton" onclick="sendMessage()">
+                Send
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function addMessage(message, sender) {
+
+    const chatBox = document.getElementById("chatBox");
+
+    const messageDiv = document.createElement("div");
+
+    messageDiv.classList.add("message");
+
+    if (sender === "user") {
+        messageDiv.classList.add("user-message");
+    } else {
+        messageDiv.classList.add("bot-message");
+    }
+
+    messageDiv.innerHTML = message;
+
+    chatBox.appendChild(messageDiv);
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+
+function askQuestion(question) {
+
+    document.getElementById("messageInput").value = question;
+
+    sendMessage();
+}
+
+
+function sendMessage() {
+
+    const input = document.getElementById("messageInput");
+
+    const message = input.value.trim();
+
+    if (!message) {
+        return;
+    }
+
+    addMessage(message, "user");
+
+    input.value = "";
+
+    const formData = new FormData();
+
+    formData.append("message", message);
+
+
+    fetch("/chatbot/api/", {
+
+        method: "POST",
+
+        headers: {
+            "X-CSRFToken": getCookie("csrftoken")
+        },
+
+        body: formData
+
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        if (data.success) {
+
+            addMessage(data.answer, "bot");
+
+        } else {
+
+            addMessage(
+                "Sorry, something went wrong.",
+                "bot"
+            );
+
+        }
+
+    })
+
+    .catch(error => {
+
+        console.error(error);
+
+        addMessage(
+            "Unable to connect to ScamShield AI.",
+            "bot"
+        );
+
+    });
+}
+
+
+/* Press Enter to send */
+
+document.getElementById("messageInput").addEventListener(
+    "keypress",
+    function(event) {
+
+        if (event.key === "Enter") {
+            sendMessage();
+        }
+
+    }
+);
+
+
+/* CSRF */
+
+function getCookie(name) {
+
+    let cookieValue = null;
+
+    if (document.cookie && document.cookie !== "") {
+
+        const cookies = document.cookie.split(";");
+
+        for (let cookie of cookies) {
+
+            cookie = cookie.trim();
+
+            if (cookie.startsWith(name + "=")) {
+
+                cookieValue = decodeURIComponent(
+                    cookie.substring(name.length + 1)
+                );
+
+                break;
+            }
+        }
+    }
+
+    return cookieValue;
+}
+
+</script>
+
+{% endblock %}

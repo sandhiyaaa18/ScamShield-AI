@@ -1,0 +1,11 @@
+pandas
+numpy
+scikit-learn
+joblib
+nltk
+scipy
+tldextract
+python-whois
+validators
+beautifulsoup4
+lxml

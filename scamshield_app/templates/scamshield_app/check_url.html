@@ -1,0 +1,434 @@
+{% extends 'scamshield_app/base.html' %}
+
+{% block content %}
+
+<section class="scanner-page">
+
+    <div class="scanner-container">
+
+        <a href="{% url 'home' %}" class="back-link">
+            ← Back to ScamShield
+        </a>
+
+        <div class="scanner-icon">
+            🔗
+        </div>
+
+        <h1>URL Scam Checker</h1>
+
+        <p class="scanner-description">
+            Enter a suspicious website URL and let
+            ScamShield AI analyze it for phishing
+            and malicious patterns.
+        </p>
+
+
+        <!-- =====================================================
+             URL FORM
+        ====================================================== -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <!-- your URL input -->
+            <input
+                type="url"
+                name="url"
+                placeholder="Enter suspicious URL..."
+                required
+            
+            >
+
+        <button type="submit" class="analyze-btn">
+            🔗 CHECK URL
+        </button>
+
+    </form>
+
+
+        <!-- =====================================================
+             ERROR
+        ====================================================== -->
+
+        {% if result and result.label == "ANALYSIS ERROR" %}
+
+        <div class="sms-error">
+
+            <h3>
+                ⚠️ Analysis Error
+            </h3>
+
+            <p>
+                {{ result.message }}
+            </p>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- =====================================================
+             RESULT
+        ====================================================== -->
+
+        {% if result and result.label != "ANALYSIS ERROR" %}
+
+        <div
+            class="sms-result"
+            id="urlResult"
+            data-label="{{ result.label }}"
+            data-confidence="{{ result.confidence }}"
+            data-risk="{{ result.risk }}"
+        >
+
+            <!-- Analysis animation -->
+
+            <div
+                class="analysis-animation"
+                id="urlAnimation"
+            >
+
+                <div class="scan-circle">
+                    🔍
+                </div>
+
+                <p>
+                    ANALYZING URL...
+                </p>
+
+            </div>
+
+
+            <!-- Final result -->
+
+            <div
+                class="final-result"
+                id="urlFinalResult"
+            >
+
+                <div
+                    class="result-icon"
+                    id="urlResultIcon"
+                >
+                    🛡️
+                </div>
+
+                <h2 id="urlResultTitle">
+                    RESULT
+                </h2>
+
+
+                <div class="result-confidence">
+
+                    Confidence:
+
+                    <strong id="urlConfidence">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="result-risk">
+
+                    Risk Level:
+
+                    <strong id="urlRisk">
+                        UNKNOWN
+                    </strong>
+
+                </div>
+
+
+                <div class="result-details">
+
+                    <h3>
+                        🔗 Checked URL
+                    </h3>
+
+                    <p>
+                        {{ result.url }}
+                    </p>
+
+                    {% if result.trusted_domain %}
+
+                    <p>
+                        🛡️ Trusted domain detected
+                    </p>
+
+                    {% endif %}
+
+                    {% if result.matched_keywords %}
+
+                    <p>
+                        🔍 Suspicious keywords:
+                        {{ result.matched_keywords }}
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     URL RESULT ANIMATION
+========================================================= -->
+
+{% if result and result.label != "ANALYSIS ERROR" %}
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const resultBox =
+            document.getElementById(
+                "urlResult"
+            );
+
+        const animation =
+            document.getElementById(
+                "urlAnimation"
+            );
+
+        const finalResult =
+            document.getElementById(
+                "urlFinalResult"
+            );
+
+        const title =
+            document.getElementById(
+                "urlResultTitle"
+            );
+
+        const icon =
+            document.getElementById(
+                "urlResultIcon"
+            );
+
+        const confidence =
+            document.getElementById(
+                "urlConfidence"
+            );
+
+        const risk =
+            document.getElementById(
+                "urlRisk"
+            );
+
+
+        const label =
+            resultBox.dataset.label;
+
+        const confidenceValue =
+            resultBox.dataset.confidence;
+
+        const riskValue =
+            resultBox.dataset.risk;
+
+
+        /*
+        ============================================
+        Hide final result initially
+        ============================================
+        */
+
+        finalResult.style.display =
+            "none";
+
+
+        /*
+        ============================================
+        Typing function
+        ============================================
+        */
+
+        function typeText(
+            element,
+            text,
+            speed,
+            callback
+        ) {
+
+            element.textContent = "";
+
+            let index = 0;
+
+            function type() {
+
+                if (
+                    index < text.length
+                ) {
+
+                    element.textContent +=
+                        text.charAt(index);
+
+                    index++;
+
+                    setTimeout(
+                        type,
+                        speed
+                    );
+
+                }
+
+                else {
+
+                    if (callback) {
+                        callback();
+                    }
+
+                }
+
+            }
+
+            type();
+
+        }
+
+
+        /*
+        ============================================
+        Analysis animation
+        ============================================
+        */
+
+        setTimeout(
+            function () {
+
+                animation.classList.add(
+                    "blink-result"
+                );
+
+                setTimeout(
+                    function () {
+
+                        animation.style.display =
+                            "none";
+
+                        finalResult.style.display =
+                            "block";
+
+
+                        /*
+                        Determine result type
+                        */
+
+                        const upperLabel =
+                            label.toUpperCase();
+
+
+                        if (
+
+                            upperLabel ===
+                            "SCAM"
+
+                            ||
+
+                            upperLabel ===
+                            "PHISHING"
+
+                            ||
+
+                            upperLabel ===
+                            "MALICIOUS"
+
+                        ) {
+
+                            icon.textContent =
+                                "🚨";
+
+                            title.classList.add(
+                                "danger-result"
+                            );
+
+                        }
+
+                        else {
+
+                            icon.textContent =
+                                "🛡️";
+
+                            title.classList.add(
+                                "safe-result"
+                            );
+
+                        }
+
+
+                        /*
+                        Type result
+                        */
+
+                        typeText(
+                            title,
+                            upperLabel,
+                            80
+                        );
+
+
+                        /*
+                        Confidence
+                        */
+
+                        setTimeout(
+                            function () {
+
+                                typeText(
+                                    confidence,
+                                    confidenceValue +
+                                    "%",
+                                    50
+                                );
+
+                            },
+                            400
+                        );
+
+
+                        /*
+                        Risk
+                        */
+
+                        setTimeout(
+                            function () {
+
+                                typeText(
+                                    risk,
+                                    riskValue.toUpperCase(),
+                                    70
+                                );
+
+                            },
+                            900
+                        );
+
+
+                    },
+                    500
+                );
+
+            },
+            1800
+        );
+
+    }
+);
+
+</script>
+
+{% endif %}
+
+{% endblock %}

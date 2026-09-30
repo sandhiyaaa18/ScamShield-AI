@@ -1,0 +1,469 @@
+{% extends "scamshield_app/base.html" %}
+
+{% block content %}
+
+<section class="checker-page">
+
+    <div class="checker-container">
+
+        <!-- =========================================
+             ICON
+        ========================================== -->
+        <center><a href="{% url 'home' %}" class="back-link">
+            ← Back to ScamShield
+        </a></center>
+
+        <div class="checker-icon">
+            📱
+        </div>
+
+
+        <!-- =========================================
+             HEADING
+        ========================================== -->
+
+        <h1>SMS Scam Checker</h1>
+
+        <p class="checker-description">
+            Paste a suspicious SMS below and let ScamShield AI
+            analyze it for scam patterns.
+        </p>
+
+
+        <!-- =========================================
+             SMS FORM
+        ========================================== -->
+
+        <form method="POST" id="smsForm">
+
+            {% csrf_token %}
+
+            <div class="input-group">
+
+                <label for="message">
+                    Suspicious SMS
+                </label>
+
+                <textarea
+                    id="message"
+                    name="message"
+                    placeholder="Paste your suspicious SMS here..."
+                    required
+                >{{ message }}</textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="analyze-btn"
+                id="checkButton"
+            >
+                🛡️ CHECK SMS
+            </button>
+
+        </form>
+
+
+        <!-- =========================================
+             ERROR
+        ========================================== -->
+
+        {% if error %}
+
+        <div class="sms-error">
+
+            <h3>⚠️ Analysis Error</h3>
+
+            <p>
+                {{ error }}
+            </p>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- =========================================
+             RESULT
+        ========================================== -->
+
+        {% if result %}
+
+        <div
+            class="sms-result"
+            id="smsResult"
+
+            data-label="{{ result.label }}"
+            data-confidence="{{ result.confidence }}"
+            data-risk="{{ result.risk }}"
+        >
+
+            <!-- =====================================
+                 ANALYSIS ANIMATION
+            ====================================== -->
+
+            <div
+                class="analysis-animation"
+                id="analysisAnimation"
+            >
+
+                <div class="scan-circle">
+                    🛡️
+                </div>
+
+                <p id="analysisText">
+                    ANALYZING SMS...
+                </p>
+
+            </div>
+
+
+            <!-- =====================================
+                 FINAL RESULT
+            ====================================== -->
+
+            <div
+                class="final-result"
+                id="finalResult"
+            >
+
+                <div
+                    class="result-icon"
+                    id="resultIcon"
+                >
+                    🛡️
+                </div>
+
+
+                <h2 id="resultTitle">
+                    RESULT
+                </h2>
+
+
+                <!-- Confidence -->
+
+                <div class="result-confidence">
+
+                    Confidence:
+
+                    <strong id="confidenceValue">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <!-- Risk -->
+
+                <div class="result-risk">
+
+                    Risk Level:
+
+                    <strong id="riskValue">
+                        UNKNOWN
+                    </strong>
+
+                </div>
+
+
+                <!-- Suspicious Keywords -->
+
+                {% if result.matched_keywords %}
+
+                <div class="result-details">
+
+                    <h3>
+                        🔍 Suspicious Keywords
+                    </h3>
+
+                    <p>
+                        {{ result.matched_keywords }}
+                    </p>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     SMS RESULT ANIMATION
+========================================== -->
+
+{% if result %}
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const resultBox =
+        document.getElementById("smsResult");
+
+    const animation =
+        document.getElementById("analysisAnimation");
+
+    const finalResult =
+        document.getElementById("finalResult");
+
+    const analysisText =
+        document.getElementById("analysisText");
+
+    const resultTitle =
+        document.getElementById("resultTitle");
+
+    const resultIcon =
+        document.getElementById("resultIcon");
+
+    const confidenceValue =
+        document.getElementById("confidenceValue");
+
+    const riskValue =
+        document.getElementById("riskValue");
+
+
+    /* =========================================
+       GET ML RESULT
+    ========================================== */
+
+    const label =
+        resultBox.dataset.label || "UNKNOWN";
+
+    const confidence =
+        resultBox.dataset.confidence || "0";
+
+    const risk =
+        resultBox.dataset.risk || "UNKNOWN";
+
+
+    /* =========================================
+       INITIAL STATE
+    ========================================== */
+
+    finalResult.style.display = "none";
+
+
+    /* =========================================
+       TYPING FUNCTION
+    ========================================== */
+
+    function typeText(element, text, speed, callback) {
+
+        element.textContent = "";
+
+        let index = 0;
+
+        function typeNextCharacter() {
+
+            if (index < text.length) {
+
+                element.textContent +=
+                    text.charAt(index);
+
+                index++;
+
+                setTimeout(
+                    typeNextCharacter,
+                    speed
+                );
+
+            } else {
+
+                if (callback) {
+                    callback();
+                }
+
+            }
+
+        }
+
+        typeNextCharacter();
+    }
+
+
+    /* =========================================
+       STEP 1
+       ANALYZING
+    ========================================== */
+
+    analysisText.textContent =
+        "ANALYZING SMS";
+
+
+    /*
+       Small blinking dots
+    */
+
+    let dots = 0;
+
+    const dotAnimation =
+        setInterval(function () {
+
+            dots++;
+
+            if (dots > 3) {
+                dots = 0;
+            }
+
+            analysisText.textContent =
+                "ANALYZING SMS" + ".".repeat(dots);
+
+        }, 400);
+
+
+    /* =========================================
+       STEP 2
+       AFTER ANALYSIS
+    ========================================== */
+
+    setTimeout(function () {
+
+        clearInterval(dotAnimation);
+
+
+        /*
+         * Blink the analysis screen
+         */
+
+        animation.classList.add("blink-result");
+
+
+        /* =====================================
+           STEP 3
+           SHOW FINAL RESULT
+        ====================================== */
+
+        setTimeout(function () {
+
+            animation.style.display = "none";
+
+            finalResult.style.display = "block";
+
+
+            /* =================================
+               DETERMINE RESULT TYPE
+            ================================== */
+
+            const upperLabel =
+                label.toUpperCase();
+
+
+            if (
+                upperLabel === "SCAM" ||
+                upperLabel === "PHISHING" ||
+                upperLabel === "MALICIOUS"
+            ) {
+
+                resultIcon.textContent = "🚨";
+
+                resultTitle.classList.add(
+                    "danger-result"
+                );
+
+            } else {
+
+                resultIcon.textContent = "🛡️";
+
+                resultTitle.classList.add(
+                    "safe-result"
+                );
+
+            }
+
+
+            /* =================================
+               TYPE RESULT
+            ================================== */
+
+            typeText(
+                resultTitle,
+                upperLabel,
+                100
+            );
+
+
+            /* =================================
+               TYPE CONFIDENCE
+            ================================== */
+
+            setTimeout(function () {
+
+                typeText(
+                    confidenceValue,
+                    confidence + "%",
+                    60
+                );
+
+            }, 500);
+
+
+            /* =================================
+               TYPE RISK
+            ================================== */
+
+            setTimeout(function () {
+
+                typeText(
+                    riskValue,
+                    risk.toUpperCase(),
+                    80
+                );
+
+            }, 1000);
+
+
+        }, 600);
+
+    }, 2200);
+
+});
+
+
+
+/* =========================================
+   PREVENT DOUBLE SUBMISSION
+========================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const form =
+            document.getElementById("smsForm");
+
+        const button =
+            document.getElementById("checkButton");
+
+        if (!form || !button) {
+            return;
+        }
+
+        form.addEventListener(
+            "submit",
+            function () {
+
+                button.disabled = true;
+
+                button.innerHTML =
+                    "🔍 ANALYZING SMS...";
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+{% endif %}
+
+{% endblock %}

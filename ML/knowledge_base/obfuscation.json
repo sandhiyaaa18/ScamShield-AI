@@ -1,0 +1,171 @@
+{
+    "v3rify": "verify",
+    "ver1fy": "verify",
+    "ver!fy": "verify",
+    "v€rify": "verify",
+    "v3r1fy": "verify",
+
+    "cl1ck": "click",
+    "cl!ck": "click",
+    "cl|ck": "click",
+    "c1ick": "click",
+
+    "fr33": "free",
+    "fre€": "free",
+    "f.r.e.e": "free",
+
+    "acc0unt": "account",
+    "accnt": "account",
+    "acct": "account",
+    "a/c": "account",
+
+    "pa$$word": "password",
+    "p@ssword": "password",
+    "passw0rd": "password",
+
+    "l0gin": "login",
+    "log1n": "login",
+
+    "0tp": "otp",
+    "o.t.p": "otp",
+    "one time password": "otp",
+
+    "bnk": "bank",
+    "b4nk": "bank",
+
+    "up1": "upi",
+    "u.p.i": "upi",
+
+    "k.y.c": "kyc",
+    "kyc update": "update kyc",
+
+    "aadhar": "aadhaar",
+    "pan card": "pan",
+
+    "cc": "credit card",
+    "cvv number": "cvv",
+
+    "rs": "rupees",
+    "inr": "rupees",
+
+    "immediatly": "immediately",
+    "immidiately": "immediately",
+
+    "ur": "your",
+    "u": "you",
+
+    "pls": "please",
+    "plz": "please",
+
+    "msg": "message",
+
+    "cust": "customer",
+
+    "txn": "transaction",
+
+    "amt": "amount",
+
+    "govt": "government",
+
+    "dept": "department",
+
+    "auth": "authorized",
+    "authrized": "authorized",
+
+    "credt": "credit",
+    "crdit": "credit",
+    "deb1t": "debit",
+
+    "suspnd": "suspend",
+    "suspned": "suspended",
+
+    "updte": "update",
+
+    "reciev": "receive",
+
+    "paytmm": "paytm",
+
+    "gpayy": "google pay",
+
+    "phonpe": "phonepe",
+
+    "amaz0n": "amazon",
+
+    "flipkrt": "flipkart",
+
+    "digil0cker": "digilocker",
+
+    "rbii": "rbi",
+
+    "npcl": "npci",
+
+    "aadhr": "aadhaar",
+
+    "crediit": "credit",
+
+    "debitt": "debit",
+
+    "verfy": "verify",
+
+    "updation": "update",
+
+    "re-verify": "verify",
+
+    "reactivate": "activate",
+
+    "sms alert": "alert",
+
+    "bank acc": "bank account",
+
+    "bank acct": "bank account",
+
+    "aadhaar card": "aadhaar",
+
+    "atm card": "card",
+
+    "debit card": "card",
+
+    "credit card": "card",
+
+    "qr code": "qr",
+
+    "scan qr": "qr",
+
+    "pay now": "payment",
+
+    "make payment": "payment",
+
+    "pay immediately": "payment",
+
+    "bank transfer": "transfer",
+
+    "wire transfer": "transfer",
+
+    "gift voucher": "gift",
+
+    "gift card": "gift",
+
+    "cash prize": "prize",
+
+    "grand prize": "prize",
+
+    "jackpot": "lottery",
+
+    "winner": "win",
+
+    "won": "win",
+
+    "claim now": "claim",
+
+    "claim immediately": "claim",
+
+    "click below": "click",
+
+    "tap here": "click",
+
+    "press here": "click",
+
+    "secure link": "url",
+
+    "official link": "url"
+}

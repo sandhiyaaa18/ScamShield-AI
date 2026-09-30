@@ -1,0 +1,34 @@
+{% extends 'scamshield_app/base.html' %}
+{% block content %}
+<div class="reports-container">
+    <h1>📑 Scam Reports</h1>
+    <div class="reports-box">
+        <table class="reports-table">
+            <thead>
+                <tr>
+                    <th>Report ID</th>
+                    <th>Submitted By</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for report in reports %}
+                <tr>
+                    <td>{{ report.title }} ({{ report.id }})</td>
+                    <td>{{ report.reported_by }}</td>
+                    <td>{{ report.date_reported|date:"M d, Y, h:i a" }}</td>
+                    <td>
+                        <a href="{% url 'download_report' report.id %}" class="btn-download">⬇ Download</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No reports available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

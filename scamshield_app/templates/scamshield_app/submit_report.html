@@ -1,0 +1,12 @@
+{% extends 'scamshield_app/base.html' %}
+{% load static %}
+{% block content %}
+<div class="form-container">
+    <h1>🛡️ Submit a Scam Report</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-submit">Submit Report</button>
+    </form>
+</div>
+{% endblock %}

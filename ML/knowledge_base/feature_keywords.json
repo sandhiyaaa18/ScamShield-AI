@@ -1,0 +1,108 @@
+{
+  "bank_keywords": [
+    "bank",
+    "sbi",
+    "hdfc",
+    "icici",
+    "axis",
+    "kotak",
+    "canara",
+    "union",
+    "indian",
+    "pnb",
+    "rbi",
+    "idfc",
+    "yes bank"
+  ],
+
+  "upi_keywords": [
+    "upi",
+    "gpay",
+    "phonepe",
+    "paytm",
+    "bhim",
+    "imps",
+    "rtgs",
+    "neft"
+  ],
+
+  "urgency_words": [
+    "urgent",
+    "immediately",
+    "today",
+    "now",
+    "quick",
+    "hurry",
+    "limited",
+    "expires",
+    "expire",
+    "within"
+  ],
+
+  "threat_words": [
+    "blocked",
+    "suspended",
+    "locked",
+    "freeze",
+    "disabled",
+    "deactivated",
+    "restricted"
+  ],
+
+  "verify_words": [
+    "verify",
+    "verification",
+    "kyc",
+    "otp",
+    "authenticate",
+    "confirm"
+  ],
+
+  "reward_words": [
+    "reward",
+    "winner",
+    "won",
+    "lottery",
+    "bonus",
+    "gift",
+    "cashback",
+    "prize"
+  ],
+
+  "financial_words": [
+    "account",
+    "transaction",
+    "credit",
+    "debit",
+    "balance",
+    "loan",
+    "payment",
+    "refund"
+  ],
+
+  "government_words": [
+    "aadhaar",
+    "pan",
+    "uidai",
+    "gst",
+    "income tax",
+    "epfo",
+    "rbi"
+  ],
+
+  "brand_words": [
+    "amazon",
+    "flipkart",
+    "myntra",
+    "sbi",
+    "hdfc",
+    "icici",
+    "axis",
+    "paytm",
+    "phonepe",
+    "gpay",
+    "india post",
+    "dhl",
+    "fedex"
+  ]
+}

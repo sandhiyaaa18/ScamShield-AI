@@ -1,0 +1,96 @@
+{
+    "BANK": [
+        "sbi",
+        "state bank of india",
+        "hdfc",
+        "icici",
+        "axis",
+        "kotak",
+        "canara",
+        "bank of baroda",
+        "bob",
+        "union bank",
+        "indian bank",
+        "yes bank",
+        "idfc",
+        "federal bank",
+        "indusind",
+        "rbl",
+        "bank"
+    ],
+
+    "UPI": [
+        "upi",
+        "phonepe",
+        "google pay",
+        "gpay",
+        "paytm",
+        "bhim",
+        "amazon pay",
+        "collect request",
+        "scan qr",
+        "qr",
+        "payment"
+    ],
+
+    "CARD": [
+        "credit card",
+        "debit card",
+        "card",
+        "cvv",
+        "pin"
+    ],
+
+    "GOVERNMENT": [
+        "aadhaar",
+        "pan",
+        "digilocker",
+        "passport",
+        "income tax",
+        "npci",
+        "rbi",
+        "uidai",
+        "government"
+    ],
+
+    "COURIER": [
+        "bluedart",
+        "blue dart",
+        "dtdc",
+        "india post",
+        "fedex",
+        "delhivery",
+        "parcel",
+        "shipment",
+        "delivery"
+    ],
+
+    "SHOPPING": [
+        "amazon",
+        "flipkart",
+        "meesho",
+        "myntra",
+        "ajio"
+    ],
+
+    "TELECOM": [
+        "airtel",
+        "jio",
+        "vi",
+        "vodafone",
+        "bsnl"
+    ],
+
+    "FINANCE": [
+        "loan",
+        "emi",
+        "interest",
+        "investment",
+        "mutual fund",
+        "crypto",
+        "bitcoin",
+        "reward",
+        "cashback",
+        "lottery"
+    ]
+}

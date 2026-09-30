@@ -1,0 +1,33 @@
+{% extends 'scamshield_app/base.html' %}
+
+{% block content %}
+
+<div class="email-verification-page">
+
+    <div class="email-verification-card">
+
+        <h2>Email Verified Successfully</h2>
+
+        <p>
+            Your email address has been verified successfully.
+        </p>
+
+        <p>
+            Your ScamShield AI account is now active.
+        </p>
+
+        <p>
+            You can now log in and start using ScamShield AI.
+        </p>
+
+        <p class="verification-login">
+            <a href="{% url 'login' %}">
+                Login to ScamShield AI
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock content %}

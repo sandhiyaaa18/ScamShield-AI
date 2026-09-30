@@ -1,0 +1,206 @@
+{% extends 'scamshield_app/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- =======================================================
+     HERO
+======================================================== -->
+
+<section class="hero">
+
+    <h1>
+        🛡️ ScamShield AI - Your Shield Against Digital Scams
+    </h1>
+
+    <p>
+        ScamShield AI helps you stay safe online by detecting,
+        reporting, and blocking fraudulent messages, emails,
+        and websites.
+    </p>
+
+    <p>
+        Our mission is to empower users with awareness and
+        protection against phishing, identity theft, and
+        digital scams.
+    </p>
+
+</section>
+
+
+<!-- =======================================================
+     CHECKER OPTIONS
+======================================================== -->
+
+<section class="checker-selection">
+
+    <div class="checker-heading">
+
+        <span class="checker-icon">
+            🔍
+        </span>
+
+        <h2>
+            What Do You Want To Check?
+        </h2>
+
+        <p>
+            Choose the type of suspicious content you want
+            ScamShield AI to analyze.
+        </p>
+
+    </div>
+
+
+    <div class="checker-cards">
+        <!-- SMS -->
+        <div class="checker-card">
+            <div class="checker-card-icon">📱</div>
+            <h3>SMS</h3>
+
+            <p>
+                Check suspicious text messages for
+                scam patterns and fraudulent content.
+            </p>
+
+            <a href="{% url 'check_sms' %}" class="checker-button">
+                📱 CHECK SMS
+            </a>
+        </div>
+
+
+        <!-- EMAIL -->
+        <div class="checker-card">
+            <div class="checker-card-icon">📧</div>
+
+            <h3>EMAIL</h3>
+
+            <p>
+                Upload a suspicious .eml email and
+                analyze it for scam indicators.
+            </p>
+
+            <a href="{% url 'check_email' %}" class="checker-button">
+                📧 CHECK EMAIL
+            </a>
+        </div>
+
+
+        <!-- URL -->
+        <div class="checker-card">
+            <div class="checker-card-icon">🔗</div>
+
+            <h3>URL</h3>
+
+            <p>
+                Check suspicious links for phishing
+                and malicious URL patterns.
+            </p>
+
+            <a href="{% url 'check_url' %}" class="checker-button">
+                🔗 CHECK URL
+            </a>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     STATS
+======================================================== -->
+
+<section class="stats">
+
+    <div class="stat-card">
+
+        <h2>
+            {{ reports_count }}
+        </h2>
+
+        <p>
+            Reports Submitted
+        </p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <h2>
+            {{ inputs_analyzed_count }}
+        </h2>
+
+        <p>
+            Inputs Analyzed
+        </p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <h2>
+            {{ users_protected_count }}
+        </h2>
+
+        <p>
+            Users Protected
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     TIPS
+======================================================== -->
+
+<section class="tips">
+
+    <div class="card">
+
+        <h4>
+            🔒 Protect Passwords
+        </h4>
+
+        <p>
+            Use strong, unique passwords for all
+            your accounts.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h4>
+            ⚠️ Spot Phishing
+        </h4>
+
+        <p>
+            Check sender addresses and avoid
+            suspicious links.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h4>
+            🛡️ Stay Secure
+        </h4>
+
+        <p>
+            Report scams to help protect the
+            community.
+        </p>
+
+    </div>
+
+</section>
+
+{% endblock %}

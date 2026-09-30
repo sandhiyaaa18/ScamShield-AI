@@ -1,0 +1,30 @@
+{% extends 'scamshield_app/base.html' %}
+
+{% block content %}
+
+<div class="email-verification-page">
+
+    <div class="email-verification-card">
+
+        <h2>Verification Failed</h2>
+
+        <p>
+            This verification link is invalid or has expired.
+        </p>
+
+        <p>
+            Please create a new account or contact the administrator
+            if you need assistance.
+        </p>
+
+        <p class="verification-login">
+            <a href="{% url 'signup' %}">
+                Back to Sign Up
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock content %}

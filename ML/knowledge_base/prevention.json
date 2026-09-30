@@ -1,0 +1,19 @@
+{
+    "SCAM": [
+        "Do not click any links in the message.",
+        "Never share OTP, PIN, CVV or passwords.",
+        "Contact the organization using its official website or app.",
+        "Report the message if you believe it is fraudulent."
+    ],
+
+    "SUSPICIOUS": [
+        "Verify the sender before taking any action.",
+        "Avoid sharing sensitive information.",
+        "Check the official website for confirmation."
+    ],
+
+    "LEGITIMATE": [
+        "No immediate security concerns detected.",
+        "Always remain cautious with personal information."
+    ]
+}

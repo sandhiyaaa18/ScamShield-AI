@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ScamShield AI</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'scamshield_app/style.css' %}">
+</head>
+<body>
+    <!-- Navbar with logo -->
+    <nav class="navbar">
+        <img src="{% static 'scamshield_app/logo.png' %}" alt="ScamShield AI Logo" class="logo-img">
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'chatbot_page' %}">AI Assistant</a></li>
+            <li><a href="{% url 'submit_report' %}">Submit Report</a></li>
+            <li><a href="{% url 'report_list' %}">View Reports</a></li>
+
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+        </ul>
+
+    </nav>
+
+    <!-- Page-specific content -->
+    {% block content %}{% endblock %}
+
+    <footer>
+        ScamShield AI © 2026 | Cybersecurity Awareness Portal
+    </footer>
+</body>
+</html>

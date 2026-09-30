@@ -1,0 +1,184 @@
+{% extends 'scamshield_app/base.html' %}
+
+{% block content %}
+
+<section class="scanner-page">
+
+    <div class="scanner-container">
+
+        <a href="{% url 'home' %}" class="back-link">
+            ← Back to ScamShield
+        </a>
+
+        <div class="scanner-icon">
+            📧
+        </div>
+
+        <h1>Email Scam Checker</h1>
+
+        <p class="scanner-description">
+            Upload a suspicious .eml email file
+            and let ScamShield analyze it.
+        </p>
+
+        <form
+            method="post"
+            enctype="multipart/form-data"
+            id="scanner-form"
+        >
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button
+                type="submit"
+                class="scan-button"
+            >
+                📧 CHECK EMAIL
+            </button>
+
+        </form>
+
+
+        {% if result %}
+
+        <div class="analysis-result">
+
+            <div class="result-blink"></div>
+
+            <div class="typing-result">
+
+                <span id="typing-text"></span>
+
+                <span class="typing-cursor">|</span>
+
+            </div>
+
+
+            <div
+                class="result-details"
+                id="result-details"
+            >
+
+                <div class="result-status">
+                    📧 EMAIL ANALYSIS
+                </div>
+
+                <h2>
+                    {{ result.label }}
+                </h2>
+
+                <p>
+                    {{ result.message }}
+                </p>
+
+                <div class="file-name">
+                    📎 {{ result.filename }}
+                </div>
+
+
+                <div class="result-grid">
+
+                    <div>
+
+                        <span>Confidence</span>
+
+                        <strong>
+                            {{ result.confidence }}%
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>Risk</span>
+
+                        <strong>
+                            {{ result.risk }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+{% if result %}
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const text =
+            "{{ result.label|escapejs }}";
+
+        const typingElement =
+            document.getElementById(
+                "typing-text"
+            );
+
+        const details =
+            document.getElementById(
+                "result-details"
+            );
+
+        let index = 0;
+
+        details.style.opacity = "0";
+
+        setTimeout(function () {
+
+            const typing =
+                setInterval(function () {
+
+                    typingElement.textContent =
+                        text.substring(
+                            0,
+                            index + 1
+                        );
+
+                    index++;
+
+                    if (
+                        index >= text.length
+                    ) {
+
+                        clearInterval(
+                            typing
+                        );
+
+                        setTimeout(function () {
+
+                            details.style.opacity =
+                                "1";
+
+                        }, 400);
+
+                    }
+
+                }, 90);
+
+        }, 700);
+
+    }
+
+);
+
+</script>
+
+{% endif %}
+
+{% endblock %}

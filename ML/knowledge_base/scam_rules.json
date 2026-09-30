@@ -1,0 +1,107 @@
+{
+    "Urgency": {
+        "weight": 8,
+        "keywords": [
+            "urgent",
+            "immediately",
+            "now",
+            "today",
+            "expire",
+            "expired",
+            "suspended",
+            "blocked",
+            "deactivated",
+            "within",
+            "limited time"
+        ]
+    },
+
+    "Verification": {
+        "weight": 10,
+        "keywords": [
+            "verify",
+            "verification",
+            "confirm",
+            "validate",
+            "authenticate",
+            "reactivate",
+            "update kyc",
+            "kyc",
+            "identity"
+        ]
+    },
+
+    "Financial": {
+        "weight": 12,
+        "keywords": [
+            "credit card",
+            "debit card",
+            "cvv",
+            "pin",
+            "bank account",
+            "payment",
+            "upi",
+            "wallet",
+            "refund",
+            "loan",
+            "investment",
+            "cashback"
+        ]
+    },
+
+    "SensitiveInformation": {
+        "weight": 15,
+        "keywords": [
+            "otp",
+            "password",
+            "username",
+            "login",
+            "account number",
+            "ifsc",
+            "net banking",
+            "security code"
+        ]
+    },
+
+    "Reward": {
+        "weight": 10,
+        "keywords": [
+            "winner",
+            "won",
+            "reward",
+            "gift",
+            "prize",
+            "cash prize",
+            "lottery",
+            "jackpot"
+        ]
+    },
+
+    "SuspiciousAction": {
+        "weight": 15,
+        "keywords": [
+            "click",
+            "tap",
+            "download",
+            "install",
+            "scan qr",
+            "collect request",
+            "visit"
+        ]
+    },
+
+    "Threat": {
+        "weight": 18,
+        "keywords": [
+            "legal action",
+            "police",
+            "court",
+            "penalty",
+            "fine",
+            "arrest",
+            "terminate",
+            "disabled",
+            "blacklisted"
+        ]
+    }
+}
